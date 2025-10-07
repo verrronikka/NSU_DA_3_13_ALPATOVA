@@ -6,7 +6,7 @@
   
 ## Rolling mean
 
-  df.rolling(window=5).mean()
+  `df.rolling(window=5).mean()`
   
   Принцип работы:
 -  Использует фиксированное окно из N последних точек
@@ -24,7 +24,7 @@
   
 ## Exponential Moving Average
 
-  df.ewm(span=5).mean()
+  `df.ewm(span=5).mean()`
   
    Принцип работы:
 -  Экспоненциально убывающие веса - новые данные важнее старых
