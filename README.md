@@ -59,7 +59,6 @@
 - `create_time_series(file_path, date_col, value_col)` — чтение из файлов csv, xlsx, xls, txt
 - `calculation_moving_average(df, windows, value_col, new_col=None)` — вычисление скользящего среднего через rolling
 - `calculation_ewm_moving_average(df, windows, value_col, new_col=None)` — вычисление скользящего среднего через ewm
-- `calculation_moving_min(df, window, value_col, new_col=None)` — вычисление скользящего минимума
 - `create_new_graphic(df, output_file, format_file, date_col, value_col, new_col)` — создание и сохранение одного графика для конкретной статистики и окна
 - `build_graphics(df, output_file, format_file, date_col, value_col, windows, new_col)` — многократный вызов функции для создания и сохранения графика
 - `main()` — основная функция
