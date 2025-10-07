@@ -29,7 +29,7 @@
 <img width="2278" height="1314" alt="image" src="https://github.com/user-attachments/assets/41d7af2f-aa1c-4955-a312-b54c56ba4265" />
 
 ## Разница между rolling и ewm
-| First Header  | Second Header | First Header  |
+| Характеристика  | ROLLING | EWM  |
 | ------------- | ------------- | ------------- |
 | Content Cell  | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  | Content Cell  |
