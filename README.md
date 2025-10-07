@@ -1,22 +1,12 @@
 # About
 Код задачи  выполняет следующее:
   - Создание или чтение временного ряда из файла
-  - Вычисление скользящих среднего через rolling и ewm
-  - Построение и сохранение графиков статистик
-
-## Структура кода
-
-- `create_time_series(file_path, date_col, value_col)` — чтение из файлов csv, xlsx, xls, txt
-- `calculation_moving_average(df, windows, value_col, new_col=None)` — вычисление скользящего среднего через rolling
-- `calculation_ewm_moving_average(df, windows, value_col, new_col=None)` — вычисление скользящего среднего через ewm
-- `calculation_moving_min(df, window, value_col, new_col=None)` — вычисление скользящего минимума
-- `create_new_graphic(df, output_file, format_file, date_col, value_col, new_col)` — создание и сохранение одного графика для конкретной статистики и окна
-- `build_graphics(df, output_file, format_file, date_col, value_col, windows, new_col)` — многократный вызов функции для создания и сохранения графика
-- `main()` — основная функция
+  - Вычисление скользящих среднего через rolling или ewm
+  - Построение и сохранение графиков
   
 ## Rolling mean
 
-  `df.rolling(window=5).mean()`
+  df.rolling(window=5).mean()
   
   Принцип работы:
 -  Использует фиксированное окно из N последних точек
@@ -34,7 +24,7 @@
   
 ## Exponential Moving Average
 
-  `df.ewm(span=5).mean()`
+  df.ewm(span=5).mean()
   
    Принцип работы:
 -  Экспоненциально убывающие веса - новые данные важнее старых
@@ -52,18 +42,33 @@
 - Ситуаций, где последние данные наиболее релевантны
   
 ## Разница между rolling и ewm
-| Характеристика  | ROLLING | EWM  |
-| ------------- | ------------- | ------------- |
-| Память  | Текущее окно  | Все данные  |
-| Сглаживание  | Быстрое  | Умеренное  |
-| Зависимость  | window  | alpha  |
-| Использование | Долгосрочные тренды | Кратковременные тренды |
+| **Характеристика**  | **ROLLING** | **EWM**  |
+|----------------|------------|---------|
+| **Память** | Только окно  | Все данные |
+| **Сглаживание** | Сильное | Умеренное |
+| **Вес данных** | Равный для всех точек в окне | Экспоненциально убывающий (новые данные важнее) |
+| **Параметр** | `window` (размер окна) | `span` или `alpha` (коэффициент сглаживания) |
+| **Начало работы** | После заполнения окна | С первой точки |
+| **Использование** | Долгосрочные тренды, сильное сглаживание | Краткосрочные тренды, быстрая реакция |
+| **Чувствительность к выбросам** | Низкая (сглаживает выбросы) | Средняя (быстрее восстанавливается) |
+| **Формула** | `(x₁ + x₂ + ... + xₙ)/n` | `EMAₜ = α×xₜ + (1-α)×EMAₜ₋₁` |
+| **Подходит для** | Анализа общих трендов, сглаживания шума | Трейдинга, обнаружения изменений, мониторинга |
+
+## Структура кода
+
+- `create_time_series(file_path, date_col, value_col)` — чтение из файлов csv, xlsx, xls, txt
+- `calculation_moving_average(df, windows, value_col, new_col=None)` — вычисление скользящего среднего через rolling
+- `calculation_ewm_moving_average(df, windows, value_col, new_col=None)` — вычисление скользящего среднего через ewm
+- `calculation_moving_min(df, window, value_col, new_col=None)` — вычисление скользящего минимума
+- `create_new_graphic(df, output_file, format_file, date_col, value_col, new_col)` — создание и сохранение одного графика для конкретной статистики и окна
+- `build_graphics(df, output_file, format_file, date_col, value_col, windows, new_col)` — многократный вызов функции для создания и сохранения графика
+- `main()` — основная функция
 
 ## Зависимости
   pip install pandas matplotlib
   
 ## Запуск
-  python moving_average.py test.csv -o output --mov-avg "mov_avg" --ewm-avg "ewm_avg" --w 5 --s 5 --format pdf
+  python moving_average_comparison.py test.csv -o output --mov-avg "mov_avg" --ewm-avg "ewm_avg" --w 5 --s 5 --format pdf
   
 ## Вывод программы
   Будет выводить набор графиков от статистик, которые мы указали
